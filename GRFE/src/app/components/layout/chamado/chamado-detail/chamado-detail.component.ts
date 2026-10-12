@@ -75,8 +75,19 @@ export class ChamadoDetailComponent {
       return;
     }
 
-    if (form.invalid) {
-      console.warn('[ChamadoDetail] Formulário inválido. Campos pendentes:', this.camposInvalidos(form));
+    const camposObrigatoriosFaltando = !this.chamado.especialidadeId
+      || !this.chamado.plantonistaId
+      || !this.chamado.usuarioResponsavelId
+      || !this.setorSelecionadoId;
+
+    if (form.invalid || camposObrigatoriosFaltando) {
+      console.warn('[ChamadoDetail] Formulário inválido. Campos pendentes:', {
+        camposDoNgForm: this.camposInvalidos(form),
+        especialidadeId: this.chamado.especialidadeId,
+        plantonistaId: this.chamado.plantonistaId,
+        usuarioResponsavelId: this.chamado.usuarioResponsavelId,
+        setorSelecionadoId: this.setorSelecionadoId
+      });
       void Swal.fire({ icon: 'warning', title: 'Campos obrigatórios', text: 'Preencha todos os campos antes de salvar.' });
       return;
     }
@@ -175,8 +186,10 @@ export class ChamadoDetailComponent {
     }
 
     this.chamado.plantonista = plantonista.nome;
-    this.chamado.especialidadeId = plantonista.especialidadeId;
-    this.chamado.especialidade = plantonista.especialidadeNome ?? this.chamado.especialidade;
+    if (plantonista.especialidadeId) {
+      this.chamado.especialidadeId = plantonista.especialidadeId;
+      this.chamado.especialidade = plantonista.especialidadeNome ?? this.chamado.especialidade;
+    }
   }
 
   onEspecialidadeChange(): void {
