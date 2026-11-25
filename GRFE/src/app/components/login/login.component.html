@@ -1,1 +1,35 @@
-<p>login works!</p>
+<main class="login-shell">
+  <section class="brand-panel" aria-label="Itaipu Binacional">
+    <div class="brand-lockup">
+      <img src="https://tinyurl.com/59f973ah" alt="Logo Itaipu Binacional" class="brand-logo">
+      <strong>Itaipu Binacional</strong>
+    </div>
+
+    <div class="brand-message">
+      <h1>DIVISAO DE PRODUÇÃO DE TI</h1>
+      <p>SI.PP.AA</p>
+    </div>
+  </section>
+
+  <section class="form-panel">
+    <div class="login-card">
+      <p class="form-kicker">ACESSO CORPORATIVO</p>
+      <h2>Bem-vindo</h2>
+      <p class="form-subtitle">Acesse com suas credenciais corporativas</p>
+
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <label for="userInput">Login</label>
+        <input id="userInput" type="text" formControlName="login" placeholder="Seu login" autocomplete="username">
+        <div *ngIf="loginForm.get('login')?.touched && loginForm.get('login')?.invalid" class="field-error">Informe seu login.</div>
+
+        <label for="passwordInput">Senha</label>
+        <input id="passwordInput" type="password" formControlName="senha" placeholder="••••••••" autocomplete="current-password">
+        <div *ngIf="loginForm.get('senha')?.touched && loginForm.get('senha')?.invalid" class="field-error">Informe sua senha.</div>
+
+        <p *ngIf="erro" class="field-error" role="alert">{{ erro }}</p>
+        <button type="submit" [disabled]="loginForm.invalid">Entrar</button>
+      </form>
+
+    </div>
+  </section>
+</main>

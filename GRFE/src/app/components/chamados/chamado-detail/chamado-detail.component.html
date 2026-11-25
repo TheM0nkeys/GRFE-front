@@ -1,0 +1,26 @@
+<main class="called-detail">
+  <p *ngIf="carregando">Carregando chamado...</p>
+  <p *ngIf="erro" role="alert">{{ erro }}</p>
+
+  <ng-container *ngIf="chamado as dados">
+    <h1>Detalhes do chamado</h1>
+    <dl>
+      <dt>Data do acionamento</dt><dd>{{ dados.dataHoraAcionamento }}</dd>
+      <dt>Especialidade</dt><dd>{{ dados.especialidadeNome }}</dd>
+      <dt>Plantonista</dt><dd>{{ dados.plantonistaNome }}</dd>
+      <dt>Responsável</dt><dd>{{ dados.usuarioResponsavelNome }}</dd>
+      <dt>Motivo</dt><dd>{{ dados.motivo }}</dd>
+      <dt>Número do incidente</dt><dd>{{ dados.numeroIncidente || '—' }}</dd>
+      <dt>Status</dt><dd>{{ dados.status }}</dd>
+    </dl>
+
+    <section>
+      <h2>Histórico</h2>
+      <p *ngIf="!historico.length">Nenhum registro de histórico.</p>
+      <article *ngFor="let registro of historico">
+        <p>{{ registro.dataHora }} — {{ registro.autorNome }}</p>
+        <p>{{ registro.comentario }}</p>
+      </article>
+    </section>
+  </ng-container>
+</main>

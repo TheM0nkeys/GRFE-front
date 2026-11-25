@@ -1,0 +1,30 @@
+<main class="report-page">
+  <header>
+    <div>
+      <p class="eyebrow">RELATÓRIOS</p>
+      <h1>Acionamentos</h1>
+    </div>
+    <div class="report-actions">
+      <button type="button" (click)="carregar('semanal')" [disabled]="carregando">Últimos 7 dias</button>
+      <button type="button" (click)="carregar('mensal')" [disabled]="carregando">Mês atual</button>
+    </div>
+  </header>
+
+  <form (ngSubmit)="carregar('periodo')">
+    <label>Início<input name="dataInicio" type="datetime-local" [(ngModel)]="dataInicio" required></label>
+    <label>Fim<input name="dataFim" type="datetime-local" [(ngModel)]="dataFim" required></label>
+    <button type="submit" [disabled]="carregando">Consultar período</button>
+  </form>
+
+  <p *ngIf="carregando">Carregando relatório...</p>
+  <p *ngIf="erro" role="alert">{{ erro }}</p>
+
+  <section *ngIf="relatorio as dados" class="report-content">
+    <p>Período: {{ dados.periodoInicio }} — {{ dados.periodoFim }}</p>
+    <h2>Total de acionamentos: {{ dados.totalAcionamentos }}</h2>
+    <section><h3>Por especialidade</h3><pre>{{ dados.porEspecialidade | json }}</pre></section>
+    <section><h3>Por plantonista</h3><pre>{{ dados.porPlantonista | json }}</pre></section>
+    <section><h3>Por divisão</h3><pre>{{ dados.porDivisao | json }}</pre></section>
+    <section><h3>Por departamento</h3><pre>{{ dados.porDepartamento | json }}</pre></section>
+  </section>
+</main>

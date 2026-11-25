@@ -1,1 +1,35 @@
-<p>menu-navegacao works!</p>
+<!-- Contêiner flutuante único -->
+<div class="menu-floating-wrapper" #menuWrapper>
+
+  <button
+    type="button"
+    class="btn-dots-animated"
+    [class.active]="menuAberto"
+    (click)="toggleMenu()"
+    aria-label="Alternar Menu"
+  >
+    <svg class="dots-icon" viewBox="0 0 24 24" width="28" height="28">
+      <circle class="dot dot-top" cx="12" cy="5" r="2" />
+      <circle class="dot dot-middle" cx="12" cy="12" r="2" />
+      <circle class="dot dot-bottom" cx="12" cy="19" r="2" />
+    </svg>
+  </button>
+
+  <ul class="custom-dropdown-menu shadow-5-strong" [class.show]="menuAberto">
+    <li><a class="dropdown-item fw-bold" routerLink="/navbar/dashboard" (click)="menuAberto = false">GRFE</a></li>
+    <li><hr class="dropdown-divider" /></li>
+    <li><a class="dropdown-item" routerLink="/navbar/dashboard" (click)="menuAberto = false">Dashboard</a></li>
+    <li><a class="dropdown-item" routerLink="/navbar/chamados" (click)="menuAberto = false">Chamados</a></li>
+    <li><a class="dropdown-item" routerLink="/navbar/relatorios" (click)="menuAberto = false">Relatórios</a></li>
+    <li><a class="dropdown-item" routerLink="/navbar/usuarios" (click)="menuAberto = false">Usuários</a></li>
+    <li><a class="dropdown-item" routerLink="/navbar/admin" (click)="menuAberto = false">Cadastros</a></li>
+    <li><a class="dropdown-item" routerLink="/navbar/escalas" (click)="menuAberto = false">Escalas</a></li>
+    <li><a class="dropdown-item logout-item" routerLink="/login" (click)="sair()">Sair</a></li>
+    <li><hr class="dropdown-divider" /></li>
+  </ul>
+
+</div>
+
+<main class="page-content">
+  <router-outlet></router-outlet>
+</main>

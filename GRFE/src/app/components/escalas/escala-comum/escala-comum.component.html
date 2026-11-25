@@ -1,0 +1,17 @@
+<main class="escala-list">
+  <header>
+    <h1>Escalas</h1>
+    <button type="button" (click)="carregarEscalas()" [disabled]="carregando">Atualizar</button>
+  </header>
+
+  <p *ngIf="carregando">Carregando escalas...</p>
+  <p *ngIf="erro" role="alert">{{ erro }}</p>
+  <p *ngIf="!carregando && !erro && !escalas.length">Nenhuma escala retornada pelo backend.</p>
+
+  <article *ngFor="let escala of escalas">
+    <h2>{{ escala.especialidadeNome }}</h2>
+    <p>Funcionário: {{ escala.funcionarioNome }}</p>
+    <p>Início: {{ escala.dataHoraInicio }}</p>
+    <p>Fim: {{ escala.dataHoraFim }}</p>
+  </article>
+</main>

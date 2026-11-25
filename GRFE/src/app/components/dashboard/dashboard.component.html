@@ -1,0 +1,36 @@
+<main class="dashboard-page">
+  <header>
+    <div>
+      <p class="eyebrow">VISÃO GERAL</p>
+      <h1>Acionamentos do mês</h1>
+      <p *ngIf="relatorio">Período informado pelo backend: {{ relatorio.periodoInicio }} — {{ relatorio.periodoFim }}</p>
+    </div>
+    <button type="button" (click)="carregarRelatorio()" [disabled]="carregando">Atualizar</button>
+  </header>
+
+  <p *ngIf="carregando">Carregando relatório...</p>
+  <p *ngIf="erro" role="alert">{{ erro }}</p>
+
+  <section *ngIf="relatorio as dados" class="report-content">
+    <article class="total-card">
+      <h2>Total de acionamentos</h2>
+      <p>{{ dados.totalAcionamentos }}</p>
+    </article>
+    <section>
+      <h2>Por especialidade</h2>
+      <pre>{{ dados.porEspecialidade | json }}</pre>
+    </section>
+    <section>
+      <h2>Por plantonista</h2>
+      <pre>{{ dados.porPlantonista | json }}</pre>
+    </section>
+    <section>
+      <h2>Por divisão</h2>
+      <pre>{{ dados.porDivisao | json }}</pre>
+    </section>
+    <section>
+      <h2>Por departamento</h2>
+      <pre>{{ dados.porDepartamento | json }}</pre>
+    </section>
+  </section>
+</main>

@@ -1,0 +1,23 @@
+<main class="called-list">
+  <header>
+    <h1>Chamados</h1>
+    <button type="button" (click)="carregarChamados()" [disabled]="carregando">Atualizar</button>
+  </header>
+
+  <p *ngIf="carregando">Carregando chamados...</p>
+  <p *ngIf="erro" role="alert">{{ erro }}</p>
+  <p *ngIf="!carregando && !erro && !chamados.length">Nenhum chamado retornado pelo backend.</p>
+
+  <article *ngFor="let chamado of chamados" class="called-item">
+    <a [routerLink]="['/navbar/chamados', chamado.id]">
+      <h2>{{ chamado.motivo }}</h2>
+      <dl>
+        <dt>Data do acionamento</dt><dd>{{ chamado.dataHoraAcionamento }}</dd>
+        <dt>Especialidade</dt><dd>{{ chamado.especialidadeNome }}</dd>
+        <dt>Plantonista</dt><dd>{{ chamado.plantonistaNome }}</dd>
+        <dt>Status</dt><dd>{{ chamado.status }}</dd>
+        <dt>Número do incidente</dt><dd>{{ chamado.numeroIncidente || '—' }}</dd>
+      </dl>
+    </a>
+  </article>
+</main>
